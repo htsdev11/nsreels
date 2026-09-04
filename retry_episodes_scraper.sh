@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change to project directory
-cd /home/nativesol/nsreel || exit 1
+cd /home/nativesol/nsreels || exit 1
 
 # Activate virtual environment
 source .venv/bin/activate
