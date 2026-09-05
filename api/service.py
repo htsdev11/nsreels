@@ -41,53 +41,47 @@ class BannerService:
         )
 
         for slide in slides:
-            img = slide.select_one("img.md\\:hidden")
+            imgs = slide.find_all("img")
 
-            if not img:
-                continue
+            for img in imgs:
+                title = (img.get("alt") or "").strip()
 
-            title = (img.get("alt") or "").strip()
+                if not title:
+                    continue
 
-            if not title:
-                continue
+                src = img.get("src")
 
-            src = img.get("src")
+                if not src or "pbcdn.aoneroom.com" not in src:
+                    continue
 
-            if not src:
-                continue
+                image = urlsplit(src)._replace(query="").geturl()
 
-            if "pbcdn.aoneroom.com" not in src:
-                continue
+                if title in seen:
+                    continue
 
-            image = urlsplit(src)._replace(query="").geturl()
+                seen.add(title)
 
-            if title in seen:
-                continue
-
-            seen.add(title)
-
-            banners.append({
-                "title": title,
-                "image": image,
-            })
+                banners.append({
+                    "title": title,
+                    "image": image,
+                })
 
         return banners
 
     @classmethod
     def get_banners(cls):
         banners = cache.get(CACHE_KEY)
-        # print("CACHE.....",banners)
 
-        if banners is not None:
+        if banners:
             return banners
 
         banners = cls.scrape_banners()
-        # print(".....", banners)
 
-        cache.set(
-            CACHE_KEY,
-            banners,
-            CACHE_TIMEOUT,
-        )
+        if banners:
+            cache.set(
+                CACHE_KEY,
+                banners,
+                CACHE_TIMEOUT,
+            )
 
         return banners
