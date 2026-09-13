@@ -2306,8 +2306,13 @@ HARDCODED_BEARER_TOKEN = (
     "6hNJ_w5DwcsHobS3N7-MDhGplU0PIDqdpcZ6q4N51ZQ"
 )
 
+# BEARER_TOKEN = normalize_bearer_token(
+#     os.getenv("VSKIT_BEARER_TOKEN", HARDCODED_BEARER_TOKEN)
+# )
+
+
 BEARER_TOKEN = normalize_bearer_token(
-    os.getenv("VSKIT_BEARER_TOKEN", HARDCODED_BEARER_TOKEN)
+    HARDCODED_BEARER_TOKEN
 )
 
 COOKIE_STRING = os.getenv("VSKIT_COOKIE_STRING", "").strip()
