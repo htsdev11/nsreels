@@ -2050,7 +2050,7 @@ import django
 import requests
 from requests.adapters import HTTPAdapter
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nsreel.settings")
 django.setup()
 
 from django.core.cache import cache
